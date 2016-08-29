@@ -1,39 +1,37 @@
 # Cookers DB
 
-Cookers was a startup project wanting to simplify day to day recipes and grocery lists.
+Cookers was a startup project wanting to simplify day to day recipes and grocery lists and this repo (`cookers-db.json`) is its complete database of receipes, ingredients and week selection.
 
-![promo](images/promo.png)
-
-Here is the complete database of receipes, ingredients and week selection.
+![promo](images/promo.jpg)
 
 ## Receipe
 
-```
+```javascript
 {
     "id" : "026a93fb-afc7-4f4a-c40b-996282cb06af", // unique id of the receipe
     "category" : "Plat principal", // category of the receipe
     "name" : "velouté de chou-fleur au roquefort !",
-    "slug" : "veloute-de-chou-fleur-au-roquefort", // receipe slug, use it to get receipe image (cf images/receipes)
+    "slug" : "veloute-de-chou-fleur-au-roquefort", // receipe slug, use it to get receipe image (cf `images/receipes`)
     "source" : "La Fée culinaire", // person name or link for the source
-    "images" : { // images for the receipe (no online anymore, use folder images/receipes)
+    "images" : { // images for the receipe (no online anymore, see folder `images/receipes`)
         "landing" : "https://cdn.mediacru.sh/B60leGYk4GGJ.jpg",
         "original" : "",
         "portrait" : "https://cdn.mediacru.sh/poINf_AsfNu8.jpg",
         "thumbnail" : "https://cdn.mediacru.sh/rAiXJBhG-uBr.jpg"
     },
     "price" : { // price of the receipe (calculated from ingredients)
+        "value" : 1.80875,
         "currency" : "€",
-        "unit" : "personnes",
-        "value" : 1.80875
+        "unit" : "personnes"
     },
-    "servings" : { // recommanded number of people
-        "unit" : "personnes",
-        "value" : 2
+    "servings" : { // ingredients quantity for this number of people
+        "value" : 2,
+        "unit" : "personnes"
     },
     "time" : { // different durations
-        "preparation" : 10,
-        "cooking" : 30,
-        "eat" : 40,
+        "preparation" : 10, // preparation time (get all ingredients/tools, slice, mix and prepare ingredients...)
+        "cooking" : 30, // backing time
+        "eat" : 40, // time before eating (it's often the sum of the two previous but not always)
         "unit" : "minutes"
     },
     "tools" : [ { // needed tools to cook the receipe
@@ -50,32 +48,32 @@ Here is the complete database of receipes, ingredients and week selection.
             "name" : "chou-fleur",
             "slug" : "chou-fleur"
         },
-        "pre" : "de",
-        "price" : {
-            "value" : 0.975,
-            "currency" : "€"
-        },
+        "role" : "essentiel", // importance of the ingredient (essentiel, facultatif)
         "quantity" : {
             "value" : 500,
             "unit" : "g"
         },
-        "role" : "essentiel" // importance of the ingredient (essentiel, facultatif)
+        "pre" : "de", // separator between quantity and ingredient (ex: 500 g de chou-fleur)
+        "price" : {
+            "value" : 0.975,
+            "currency" : "€"
+        }
     }, {
         "food" : {
             "id" : "roquefort",
             "category" : "Frais",
             "name" : "roquefort"
         },
-        "pre" : "de",
-        "price" : {
-            "currency" : "€",
-            "value" : 1.6625
-        },
+        "role" : "essentiel",
         "quantity" : {
             "unit" : "g",
             "value" : 125
         },
-        "role" : "essentiel"
+        "pre" : "de",
+        "price" : {
+            "currency" : "€",
+            "value" : 1.6625
+        }
     }, {
         "food" : {
             "category" : "Frais",
@@ -83,32 +81,32 @@ Here is the complete database of receipes, ingredients and week selection.
             "name" : "crème fraîche entière",
             "slug" : "creme-fraiche-entiere"
         },
-        "pre" : "de",
-        "price" : {
-            "currency" : "€",
-            "value" : 0.8
-        },
+        "role" : "facultatif",
         "quantity" : {
             "unit" : "cl",
             "value" : 20
         },
-        "role" : "facultatif"
+        "pre" : "de",
+        "price" : {
+            "currency" : "€",
+            "value" : 0.8
+        }
     }, {
         "food" : {
             "category" : "Frais",
             "id" : "lait",
             "name" : "lait"
         },
-        "pre" : "de",
-        "price" : {
-            "currency" : "€",
-            "value" : 0.18
-        },
+        "role" : "facultatif",
         "quantity" : {
             "unit" : "cl",
             "value" : 20
         },
-        "role" : "facultatif"
+        "pre" : "de",
+        "price" : {
+            "currency" : "€",
+            "value" : 0.18
+        }
     } ],
     "instructions" : [ { // list of instructions to cook the receipe
         "title" : "C'est parti !",
@@ -136,7 +134,7 @@ Here is the complete database of receipes, ingredients and week selection.
 
 ## Ingredient
 
-```
+```javascript
 {
     "id" : "09a59fad-7e3d-4eca-ba94-000e1b54a6d8", // unique id for the ingredient
     "category" : "Épicerie salée",
@@ -155,10 +153,10 @@ Here is the complete database of receipes, ingredients and week selection.
 
 ## Week selection
 
-Here, `selections` are only ids of receipes whereas `weekrecipes` are the full recipes. It's recommanded to use `selections` as `weekrecipes` may have some value missing...
+Here, `selections` are only ids of receipes in the selection whereas `weekrecipes` are the full recipes. It's recommanded to use `selections` as `weekrecipes` may have some missing values...
 
 
-```
+```javascript
 {
     "id" : "6", // id of the selection, same as `week` but in string
     "week" : 6, // week number of the year the selection is for
